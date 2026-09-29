@@ -2,7 +2,9 @@
 
 A Supabase PostgreSQL database project for a navigation and route-planning application called Navi – RouteMap.
 
-The project demonstrates database design, sample data, CRUD operations, aggregate functions, and relationships between tables using SQL.
+This project demonstrates database design, sample data, CRUD operations, aggregate functions, and relationships between tables using SQL.
+
+---
 
 📌 Project Overview
 
@@ -14,6 +16,8 @@ Navi – RouteMap manages:
 - 🛣️ Routes
 - 🕒 Route History
 
+---
+
 🗃️ Database Tables
 
 Table| Description
@@ -22,6 +26,8 @@ Table| Description
 "vehicles"| Stores user vehicle information
 "routes"| Stores route details
 "route_history"| Stores users' route search history
+
+---
 
 🔗 Database Relationships
 
@@ -47,6 +53,8 @@ locations.location_id → routes.start_location_id
 
 locations.location_id → routes.destination_location_id
 
+---
+
 📂 Project Files
 
 routemap/
@@ -61,16 +69,23 @@ routemap/
 ├── 08_relationship_queries.sql
 └── README.md
 
+---
+
 ⚙️ SQL Operations Covered
 
 CRUD Operations
 
-- "INSERT" – Create records
-- "SELECT" – Read records
-- "UPDATE" – Modify records
-- "DELETE" – Remove records
+Operation| SQL Command| Purpose
+Create| "INSERT"| Create new records
+Read| "SELECT"| Retrieve records
+Update| "UPDATE"| Modify records
+Delete| "DELETE"| Remove records
 
-Aggregate Functions
+---
+
+📊 Aggregate Functions
+
+The project uses:
 
 COUNT()
 SUM()
@@ -78,36 +93,64 @@ AVG()
 MIN()
 MAX()
 
-SQL Concepts
+---
+
+📚 SQL Concepts Used
 
 - Primary Keys
 - Foreign Keys
-- INNER JOIN
-- LEFT JOIN
-- WHERE
-- ORDER BY
-- GROUP BY
-- BETWEEN
-- IN
+- "INNER JOIN"
+- "LEFT JOIN"
+- "WHERE"
+- "ORDER BY"
+- "GROUP BY"
+- "BETWEEN"
+- "IN"
 - Aggregate Functions
+- CRUD Operations
+- Relational Database Design
+
+---
 
 🚀 How to Run
 
-1. Create a project in Supabase.
-2. Open the SQL Editor.
-3. Run the SQL files in the following order:
+Step 1 – Create Supabase Project
+
+Create a PostgreSQL database project in Supabase.
+
+Step 2 – Open SQL Editor
+
+Open the SQL Editor in your Supabase project.
+
+Step 3 – Run SQL Files
+
+Run the files in this order:
 
 01_database_schema.sql
+        ↓
 02_sample_data.sql
+        ↓
 03_insert_queries.sql
+        ↓
 04_select_queries.sql
+        ↓
 05_update_queries.sql
+        ↓
 06_delete_queries.sql
+        ↓
 07_aggregate_queries.sql
+        ↓
 08_relationship_queries.sql
 
-4. Open Table Editor in Supabase.
-5. Check the created tables and query results.
+Step 4 – Check Tables
+
+Open the Table Editor in Supabase and verify the tables and records.
+
+Step 5 – Execute Queries
+
+Run the queries from each SQL file in the Supabase SQL Editor and check the results.
+
+---
 
 🎯 Project Objectives
 
@@ -117,14 +160,20 @@ SQL Concepts
 - Perform CRUD operations.
 - Use aggregate functions for data analysis.
 - Retrieve related data using JOIN queries.
+- Understand relationships between multiple tables.
 - Gain practical experience with Supabase PostgreSQL.
+
+---
 
 🛠️ Technologies Used
 
-- SQL
-- PostgreSQL
-- Supabase
-- GitHub
+Technology| Purpose
+SQL| Database queries and operations
+PostgreSQL| Relational database
+Supabase| Database platform
+GitHub| Project and SQL file management
+
+---
 
 👨‍💻 Author
 
@@ -132,10 +181,16 @@ M. Shiva Nandheswara Reddy
 
 B.Tech Student – Sai University
 
+---
+
 📚 Academic Project
 
-This project was created as part of a Database / SQL practical assignment to demonstrate database design and SQL operations using a real-world navigation application.
+This project was created as part of a Database / SQL practical assignment to demonstrate database design, CRUD operations, aggregate functions, SQL JOINs, and relationships between tables using Supabase PostgreSQL.
 
 ---
 
-⭐ Navi – RouteMap | Database Management Project
+⭐ Project
+
+🗺️ Navi – RouteMap
+
+Database Management Project using Supabase PostgreSQL
