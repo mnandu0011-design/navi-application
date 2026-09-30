@@ -3,229 +3,443 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Navi - RouteMap</title>
-
-    <link rel="stylesheet"
-          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-
+    <title>MyNavi - Finance App</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="app">
+<!-- LOGIN -->
 
-    <!-- Sidebar -->
+<div id="loginPage" class="login-page">
+
+    <div class="login-box">
+
+        <div class="brand">
+            <div class="brand-icon">N</div>
+            <h1>MyNavi</h1>
+        </div>
+
+        <p class="login-subtitle">
+            Your simple digital finance app
+        </p>
+
+        <label>Mobile Number</label>
+
+        <input
+            type="tel"
+            id="loginMobile"
+            placeholder="Enter mobile number"
+            maxlength="10"
+        >
+
+        <button onclick="login()" class="main-btn">
+            Continue
+        </button>
+
+        <p class="small-text">
+            By continuing, you agree to our Terms & Privacy Policy.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- APPLICATION -->
+
+<div id="app" class="app hidden">
+
+    <!-- SIDEBAR -->
+
     <aside class="sidebar">
 
         <div class="logo">
-            <div class="logo-icon">🧭</div>
+            <div class="logo-circle">N</div>
+
             <div>
-                <h2>Navi</h2>
-                <span>RouteMap</span>
+                <h2>MyNavi</h2>
+                <small>Finance</small>
             </div>
         </div>
 
+
         <nav>
 
-            <button class="menu active" onclick="showPage('mapPage', this)">
-                <span>🗺️</span>
-                Map
+            <button class="nav-btn active"
+                    onclick="showPage('home', this)">
+                🏠
+                <span>Home</span>
             </button>
 
-            <button class="menu" onclick="showPage('routesPage', this)">
-                <span>🛣️</span>
-                Routes
+            <button class="nav-btn"
+                    onclick="showPage('recharge', this)">
+                📱
+                <span>Recharge</span>
             </button>
 
-            <button class="menu" onclick="showPage('savedPage', this)">
-                <span>⭐</span>
-                Saved Places
+            <button class="nav-btn"
+                    onclick="showPage('bills', this)">
+                💡
+                <span>Pay Bills</span>
             </button>
 
-            <button class="menu" onclick="showPage('vehiclesPage', this)">
-                <span>🚗</span>
-                Vehicles
+            <button class="nav-btn"
+                    onclick="showPage('send', this)">
+                💸
+                <span>Send Money</span>
             </button>
 
-            <button class="menu" onclick="showPage('historyPage', this)">
-                <span>🕒</span>
-                Route History
+            <button class="nav-btn"
+                    onclick="showPage('loans', this)">
+                💰
+                <span>Loans</span>
+            </button>
+
+            <button class="nav-btn"
+                    onclick="showPage('insurance', this)">
+                🛡️
+                <span>Insurance</span>
+            </button>
+
+            <button class="nav-btn"
+                    onclick="showPage('investments', this)">
+                📈
+                <span>Investments</span>
+            </button>
+
+            <button class="nav-btn"
+                    onclick="showPage('transactions', this)">
+                🧾
+                <span>Transactions</span>
             </button>
 
         </nav>
 
+
         <div class="sidebar-bottom">
 
-            <button class="menu">
-                <span>⚙️</span>
-                Settings
+            <button class="nav-btn"
+                    onclick="showPage('profile', this)">
+                👤
+                <span>Profile</span>
             </button>
 
-            <div class="profile">
-                <div class="avatar">N</div>
-
-                <div>
-                    <strong>Nandu</strong>
-                    <small>Personal Account</small>
-                </div>
-            </div>
+            <button class="nav-btn logout"
+                    onclick="logout()">
+                🚪
+                <span>Logout</span>
+            </button>
 
         </div>
 
     </aside>
 
 
-    <!-- Main Content -->
+    <!-- MAIN -->
+
     <main class="main">
 
-        <!-- MAP PAGE -->
-        <section id="mapPage" class="page active-page">
+        <!-- TOP BAR -->
 
-            <header class="topbar">
+        <header class="topbar">
+
+            <div>
+                <h3>MyNavi</h3>
+            </div>
+
+            <div class="top-right">
+
+                <button class="notification">
+                    🔔
+                </button>
+
+                <div class="user-avatar">
+                    N
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- HOME -->
+
+        <section id="home" class="page active-page">
+
+            <div class="welcome">
 
                 <div>
-                    <h1>Explore</h1>
-                    <p>Find your way anywhere</p>
+                    <p>Good evening 👋</p>
+                    <h1>Welcome, <span id="userName">Nandu</span></h1>
                 </div>
 
-                <div class="top-actions">
-                    <button class="icon-btn">🔔</button>
-                    <button class="user-btn">N</button>
+            </div>
+
+
+            <!-- BALANCE -->
+
+            <div class="balance-card">
+
+                <div>
+
+                    <p>Available Balance</p>
+
+                    <h1>
+                        ₹<span id="balance">12540</span>
+                    </h1>
+
+                    <small>Demo wallet balance</small>
+
                 </div>
 
-            </header>
+                <button onclick="addMoney()">
+                    + Add Money
+                </button>
+
+            </div>
 
 
-            <div class="map-container">
+            <!-- QUICK ACTIONS -->
 
-                <div id="map"></div>
+            <h2 class="section-title">
+                Quick Actions
+            </h2>
+
+            <div class="quick-actions">
+
+                <button onclick="openPage('recharge')">
+                    <span>📱</span>
+                    Mobile Recharge
+                </button>
+
+                <button onclick="openPage('bills')">
+                    <span>💡</span>
+                    Pay Bills
+                </button>
+
+                <button onclick="openPage('send')">
+                    <span>💸</span>
+                    Send Money
+                </button>
+
+                <button onclick="addMoney()">
+                    <span>💳</span>
+                    Add Money
+                </button>
+
+            </div>
 
 
-                <!-- Search Box -->
-                <div class="search-panel">
+            <!-- SERVICES -->
 
-                    <div class="search-title">
-                        <span>🔍</span>
-                        <input
-                            type="text"
-                            id="destination"
-                            placeholder="Where do you want to go?"
-                        >
+            <h2 class="section-title">
+                Financial Services
+            </h2>
+
+            <div class="service-grid">
+
+                <div class="service-card"
+                     onclick="openPage('loans')">
+
+                    <div class="service-icon loan">
+                        💰
                     </div>
 
-                    <div class="route-input">
+                    <h3>Personal Loan</h3>
 
-                        <div class="location-dot blue"></div>
+                    <p>Check your eligibility</p>
 
-                        <input
-                            type="text"
-                            id="start"
-                            placeholder="Current location"
-                            value="Current Location"
-                        >
+                </div>
 
+
+                <div class="service-card"
+                     onclick="openPage('insurance')">
+
+                    <div class="service-icon">
+                        🛡️
                     </div>
 
-                    <div class="route-line"></div>
+                    <h3>Health Insurance</h3>
 
-                    <div class="route-input">
+                    <p>Protect yourself & family</p>
 
-                        <div class="location-dot red"></div>
+                </div>
 
-                        <input
-                            type="text"
-                            id="end"
-                            placeholder="Enter destination"
-                        >
 
+                <div class="service-card"
+                     onclick="openPage('investments')">
+
+                    <div class="service-icon">
+                        📈
                     </div>
 
-                    <button class="route-btn" onclick="calculateRoute()">
-                        🛣️ Calculate Route
+                    <h3>Mutual Funds</h3>
+
+                    <p>Start investing</p>
+
+                </div>
+
+
+                <div class="service-card"
+                     onclick="openPage('recharge')">
+
+                    <div class="service-icon">
+                        📱
+                    </div>
+
+                    <h3>Recharges</h3>
+
+                    <p>Mobile, DTH & FASTag</p>
+
+                </div>
+
+            </div>
+
+
+            <!-- RECENT -->
+
+            <h2 class="section-title">
+                Recent Transactions
+            </h2>
+
+            <div id="homeTransactions"
+                 class="transaction-list">
+
+            </div>
+
+        </section>
+
+
+        <!-- RECHARGE -->
+
+        <section id="recharge" class="page">
+
+            <div class="page-title">
+
+                <h1>Mobile Recharge</h1>
+
+                <p>Recharge your mobile number</p>
+
+            </div>
+
+
+            <div class="form-card">
+
+                <label>Mobile Number</label>
+
+                <input
+                    id="rechargeMobile"
+                    type="tel"
+                    maxlength="10"
+                    placeholder="Enter mobile number"
+                >
+
+
+                <label>Operator</label>
+
+                <select id="operator">
+
+                    <option>Jio</option>
+                    <option>Airtel</option>
+                    <option>Vi</option>
+                    <option>BSNL</option>
+
+                </select>
+
+
+                <label>Recharge Amount</label>
+
+                <div class="amount-buttons">
+
+                    <button onclick="selectAmount(199)">
+                        ₹199
+                    </button>
+
+                    <button onclick="selectAmount(299)">
+                        ₹299
+                    </button>
+
+                    <button onclick="selectAmount(399)">
+                        ₹399
+                    </button>
+
+                    <button onclick="selectAmount(599)">
+                        ₹599
                     </button>
 
                 </div>
 
 
-                <!-- Map Controls -->
-                <div class="map-controls">
-
-                    <button onclick="locateUser()">📍</button>
-
-                    <button onclick="zoomIn()">+</button>
-
-                    <button onclick="zoomOut()">−</button>
-
-                </div>
+                <input
+                    id="rechargeAmount"
+                    type="number"
+                    placeholder="Enter amount"
+                >
 
 
-                <!-- Route Information -->
-                <div id="routeInfo" class="route-info">
-
-                    <div>
-                        <span>Distance</span>
-                        <strong id="distance">--</strong>
-                    </div>
-
-                    <div>
-                        <span>Time</span>
-                        <strong id="time">--</strong>
-                    </div>
-
-                    <div>
-                        <span>Mode</span>
-                        <strong>🚗 Car</strong>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ROUTES PAGE -->
-        <section id="routesPage" class="page">
-
-            <div class="page-header">
-
-                <div>
-                    <h1>Routes</h1>
-                    <p>Plan your journey</p>
-                </div>
-
-                <button class="primary-btn" onclick="openRouteForm()">
-                    + New Route
+                <button
+                    class="main-btn"
+                    onclick="recharge()">
+                    Proceed to Recharge
                 </button>
 
             </div>
 
-            <div class="cards">
+        </section>
 
-                <div class="route-card">
 
-                    <div class="route-icon">🛣️</div>
+        <!-- BILLS -->
 
-                    <div>
-                        <h3>College Route</h3>
-                        <p>Home → Sai University</p>
-                        <small>18.5 km · 35 min</small>
-                    </div>
+        <section id="bills" class="page">
+
+            <div class="page-title">
+
+                <h1>Pay Bills</h1>
+
+                <p>Pay your everyday bills</p>
+
+            </div>
+
+
+            <div class="bill-grid">
+
+                <div class="bill-card"
+                     onclick="payBill('Electricity')">
+
+                    <div>💡</div>
+                    <h3>Electricity</h3>
+                    <p>Pay electricity bill</p>
 
                 </div>
 
 
-                <div class="route-card">
+                <div class="bill-card"
+                     onclick="payBill('Broadband')">
 
-                    <div class="route-icon">🏙️</div>
+                    <div>🌐</div>
+                    <h3>Broadband</h3>
+                    <p>Pay internet bill</p>
 
-                    <div>
-                        <h3>City Route</h3>
-                        <p>College → Chennai</p>
-                        <small>42 km · 1 hr 10 min</small>
-                    </div>
+                </div>
+
+
+                <div class="bill-card"
+                     onclick="payBill('DTH')">
+
+                    <div>📺</div>
+                    <h3>DTH</h3>
+                    <p>Recharge DTH</p>
+
+                </div>
+
+
+                <div class="bill-card"
+                     onclick="payBill('FASTag')">
+
+                    <div>🚗</div>
+                    <h3>FASTag</h3>
+                    <p>Recharge FASTag</p>
 
                 </div>
 
@@ -234,63 +448,229 @@
         </section>
 
 
-        <!-- SAVED PAGE -->
-        <section id="savedPage" class="page">
+        <!-- SEND MONEY -->
 
-            <div class="page-header">
+        <section id="send" class="page">
+
+            <div class="page-title">
+
+                <h1>Send Money</h1>
+
+                <p>Transfer money using UPI</p>
+
+            </div>
+
+
+            <div class="form-card">
+
+                <label>UPI ID / Mobile Number</label>
+
+                <input
+                    id="receiver"
+                    placeholder="example@upi"
+                >
+
+
+                <label>Amount</label>
+
+                <input
+                    id="sendAmount"
+                    type="number"
+                    placeholder="Enter amount"
+                >
+
+
+                <label>Message</label>
+
+                <input
+                    id="sendMessage"
+                    placeholder="Optional message"
+                >
+
+
+                <button
+                    class="main-btn"
+                    onclick="sendMoney()">
+
+                    Send Money
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- LOANS -->
+
+        <section id="loans" class="page">
+
+            <div class="page-title">
+
+                <h1>Loans</h1>
+
+                <p>Explore loan options</p>
+
+            </div>
+
+
+            <div class="loan-banner">
 
                 <div>
-                    <h1>Saved Places</h1>
-                    <p>Your favorite locations</p>
+
+                    <h2>Personal Loan</h2>
+
+                    <p>
+                        Check your eligibility for a demo loan.
+                    </p>
+
+                    <button onclick="applyLoan()">
+                        Check Eligibility
+                    </button>
+
                 </div>
 
-                <button class="primary-btn" onclick="addPlace()">
-                    + Add Place
+                <div class="big-icon">
+                    💰
+                </div>
+
+            </div>
+
+
+            <div class="loan-options">
+
+                <div>
+                    <strong>₹10,000</strong>
+                    <span>Minimum amount</span>
+                </div>
+
+                <div>
+                    <strong>₹5,00,000</strong>
+                    <span>Maximum amount</span>
+                </div>
+
+                <div>
+                    <strong>Flexible</strong>
+                    <span>Repayment</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- INSURANCE -->
+
+        <section id="insurance" class="page">
+
+            <div class="page-title">
+
+                <h1>Insurance</h1>
+
+                <p>Explore protection plans</p>
+
+            </div>
+
+
+            <div class="insurance-grid">
+
+                <div class="insurance-card">
+
+                    <div>🏥</div>
+
+                    <h2>Health Insurance</h2>
+
+                    <p>
+                        Health coverage for you and your family.
+                    </p>
+
+                    <button onclick="insuranceAlert()">
+                        Explore Plan
+                    </button>
+
+                </div>
+
+
+                <div class="insurance-card">
+
+                    <div>👨‍👩‍👧</div>
+
+                    <h2>Family Protection</h2>
+
+                    <p>
+                        Explore protection options.
+                    </p>
+
+                    <button onclick="insuranceAlert()">
+                        Explore Plan
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- INVESTMENTS -->
+
+        <section id="investments" class="page">
+
+            <div class="page-title">
+
+                <h1>Investments</h1>
+
+                <p>Explore mutual funds</p>
+
+            </div>
+
+
+            <div class="investment-banner">
+
+                <h2>Start your investment journey</h2>
+
+                <p>
+                    Explore demo mutual fund categories.
+                </p>
+
+                <button onclick="investmentAlert()">
+                    Explore Funds
                 </button>
 
             </div>
 
 
-            <div class="cards">
+            <div class="fund-grid">
 
-                <div class="place-card">
+                <div class="fund-card">
 
-                    <div class="place-icon home">🏠</div>
+                    <span>Equity</span>
 
-                    <div>
-                        <h3>Home</h3>
-                        <p>My Home Location</p>
-                    </div>
+                    <h2>Large Cap Fund</h2>
 
-                    <button>•••</button>
+                    <p>Long-term investment category</p>
 
                 </div>
 
 
-                <div class="place-card">
+                <div class="fund-card">
 
-                    <div class="place-icon college">🎓</div>
+                    <span>Hybrid</span>
 
-                    <div>
-                        <h3>College</h3>
-                        <p>Sai University</p>
-                    </div>
+                    <h2>Balanced Fund</h2>
 
-                    <button>•••</button>
+                    <p>Mixed investment category</p>
 
                 </div>
 
 
-                <div class="place-card">
+                <div class="fund-card">
 
-                    <div class="place-icon work">💼</div>
+                    <span>Debt</span>
 
-                    <div>
-                        <h3>Work</h3>
-                        <p>Office Location</p>
-                    </div>
+                    <h2>Debt Fund</h2>
 
-                    <button>•••</button>
+                    <p>Lower volatility category</p>
 
                 </div>
 
@@ -299,115 +679,57 @@
         </section>
 
 
-        <!-- VEHICLES PAGE -->
-        <section id="vehiclesPage" class="page">
+        <!-- TRANSACTIONS -->
 
-            <div class="page-header">
+        <section id="transactions" class="page">
 
-                <div>
-                    <h1>Vehicles</h1>
-                    <p>Manage your vehicles</p>
+            <div class="page-title">
+
+                <h1>Transactions</h1>
+
+                <p>Your payment history</p>
+
+            </div>
+
+
+            <div id="allTransactions"
+                 class="transaction-list">
+
+            </div>
+
+        </section>
+
+
+        <!-- PROFILE -->
+
+        <section id="profile" class="page">
+
+            <div class="page-title">
+
+                <h1>Profile</h1>
+
+                <p>Manage your account</p>
+
+            </div>
+
+
+            <div class="profile-card">
+
+                <div class="profile-avatar">
+                    N
                 </div>
 
-                <button class="primary-btn" onclick="addVehicle()">
-                    + Add Vehicle
+                <h2 id="profileName">
+                    Nandu
+                </h2>
+
+                <p id="profileMobile">
+                    +91 XXXXX XXXXX
+                </p>
+
+                <button onclick="editProfile()">
+                    Edit Profile
                 </button>
-
-            </div>
-
-
-            <div class="vehicle-card">
-
-                <div class="vehicle-image">🚗</div>
-
-                <div class="vehicle-details">
-
-                    <h2>My Car</h2>
-
-                    <p>Personal Vehicle</p>
-
-                    <div class="vehicle-info">
-
-                        <span>🚘 Car</span>
-                        <span>⛽ Petrol</span>
-                        <span>🪪 TN 00 AB 1234</span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- HISTORY PAGE -->
-        <section id="historyPage" class="page">
-
-            <div class="page-header">
-
-                <div>
-                    <h1>Route History</h1>
-                    <p>Your previous journeys</p>
-                </div>
-
-            </div>
-
-
-            <div class="history-list">
-
-                <div class="history-item">
-
-                    <div class="history-icon">🛣️</div>
-
-                    <div class="history-details">
-
-                        <h3>Home → College</h3>
-                        <p>Today · 9:15 AM</p>
-
-                    </div>
-
-                    <div class="history-distance">
-                        18.5 km
-                    </div>
-
-                </div>
-
-
-                <div class="history-item">
-
-                    <div class="history-icon">🛣️</div>
-
-                    <div class="history-details">
-
-                        <h3>College → Chennai</h3>
-                        <p>Yesterday · 4:30 PM</p>
-
-                    </div>
-
-                    <div class="history-distance">
-                        42 km
-                    </div>
-
-                </div>
-
-
-                <div class="history-item">
-
-                    <div class="history-icon">🛣️</div>
-
-                    <div class="history-details">
-
-                        <h3>Home → Mall</h3>
-                        <p>28 Sep · 6:20 PM</p>
-
-                    </div>
-
-                    <div class="history-distance">
-                        8.2 km
-                    </div>
-
-                </div>
 
             </div>
 
@@ -418,7 +740,36 @@
 </div>
 
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- PAYMENT MODAL -->
+
+<div id="modal" class="modal hidden">
+
+    <div class="modal-box">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <h2 id="modalTitle">
+            Payment Successful
+        </h2>
+
+        <p id="modalMessage">
+            Your transaction was completed.
+        </p>
+
+        <button
+            class="main-btn"
+            onclick="closeModal()">
+
+            Done
+
+        </button>
+
+    </div>
+
+</div>
+
 
 <script src="script.js"></script>
 
