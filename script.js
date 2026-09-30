@@ -3,8 +3,8 @@
 // NAVIPAY SUPABASE CONNECTION
 // =====================================================
 
-const SUPABASE_URL = "YOUR_SUPABASE_URL";
-const SUPABASE_KEY = "YOUR_SUPABASE_PUBLISHABLE_KEY";
+const SUPABASE_URL = "https://ytidrdltibyycxuwmafy.supabase.co";
+const SUPABASE_KEY = "sb_publishable_9iIiH9tiXuDEXt6F5yliCg_OMU4N1wq";
 
 const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
