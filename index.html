@@ -1,0 +1,992 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NaviPay - Personal Finance</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+<!-- ================= LOGIN ================= -->
+
+<div id="authPage" class="auth-page">
+
+    <div class="auth-box">
+
+        <div class="logo">NaviPay</div>
+
+        <div id="loginBox">
+
+            <h1>Welcome back</h1>
+            <p class="auth-subtitle">Login to your account</p>
+
+            <form id="loginForm">
+
+                <label>Mobile Number</label>
+                <input
+                    type="tel"
+                    id="loginPhone"
+                    placeholder="Enter mobile number"
+                    maxlength="10"
+                    required
+                >
+
+                <label>Password</label>
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Enter password"
+                    required
+                >
+
+                <button type="submit" class="primary-btn">
+                    Login
+                </button>
+
+            </form>
+
+            <p class="switch-text">
+                Don't have an account?
+                <button type="button" onclick="showSignup()">
+                    Sign Up
+                </button>
+            </p>
+
+        </div>
+
+
+        <!-- ================= SIGNUP ================= -->
+
+        <div id="signupBox" class="hidden">
+
+            <h1>Create account</h1>
+            <p class="auth-subtitle">Create your NaviPay account</p>
+
+            <form id="signupForm">
+
+                <label>Full Name</label>
+                <input
+                    type="text"
+                    id="signupName"
+                    placeholder="Enter your full name"
+                    required
+                >
+
+                <label>Mobile Number</label>
+                <input
+                    type="tel"
+                    id="signupPhone"
+                    placeholder="10 digit mobile number"
+                    maxlength="10"
+                    required
+                >
+
+                <label>Email</label>
+                <input
+                    type="email"
+                    id="signupEmail"
+                    placeholder="Enter email"
+                    required
+                >
+
+                <label>Password</label>
+                <input
+                    type="password"
+                    id="signupPassword"
+                    placeholder="Create password"
+                    required
+                >
+
+                <button type="submit" class="primary-btn">
+                    Create Account
+                </button>
+
+            </form>
+
+            <p class="switch-text">
+                Already have an account?
+                <button type="button" onclick="showLogin()">
+                    Login
+                </button>
+            </p>
+
+        </div>
+
+
+        <!-- ================= OTP ================= -->
+
+        <div id="otpBox" class="hidden">
+
+            <h1>Verify Mobile</h1>
+
+            <p class="auth-subtitle">
+                Enter the OTP sent to your mobile number.
+            </p>
+
+            <input
+                type="text"
+                id="otpCode"
+                placeholder="Enter OTP"
+                maxlength="6"
+            >
+
+            <button
+                type="button"
+                class="primary-btn"
+                onclick="verifyOTP()"
+            >
+                Verify OTP
+            </button>
+
+        </div>
+
+        <p id="authMessage"></p>
+
+    </div>
+
+</div>
+
+
+<!-- ================= APP ================= -->
+
+<div id="appPage" class="hidden">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="side-logo">
+            NaviPay
+        </div>
+
+        <button class="nav-btn active" onclick="showSection('dashboard')">
+            🏠 Dashboard
+        </button>
+
+        <button class="nav-btn" onclick="showSection('payments')">
+            💸 Payments
+        </button>
+
+        <button class="nav-btn" onclick="showSection('recharge')">
+            📱 Recharge
+        </button>
+
+        <button class="nav-btn" onclick="showSection('bills')">
+            💡 Bills
+        </button>
+
+        <button class="nav-btn" onclick="showSection('loans')">
+            🏦 Loans
+        </button>
+
+        <button class="nav-btn" onclick="showSection('insurance')">
+            🛡️ Insurance
+        </button>
+
+        <button class="nav-btn" onclick="showSection('investments')">
+            📈 Investments
+        </button>
+
+        <button class="nav-btn" onclick="showSection('transactions')">
+            📜 Transactions
+        </button>
+
+        <button class="nav-btn" onclick="showSection('profile')">
+            👤 Profile
+        </button>
+
+        <button class="nav-btn logout" onclick="logout()">
+            🚪 Logout
+        </button>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+        <!-- HEADER -->
+
+        <header class="topbar">
+
+            <div>
+                <h2 id="pageTitle">Dashboard</h2>
+            </div>
+
+            <div class="user-mini">
+
+                <div class="avatar" id="userAvatar">
+                    U
+                </div>
+
+                <span id="topUserName">
+                    User
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <section id="dashboard" class="section active-section">
+
+            <div class="welcome">
+
+                <div>
+                    <p>Welcome back,</p>
+                    <h1 id="welcomeName">User</h1>
+                </div>
+
+                <div>
+                    <span class="small-label">
+                        Wallet Balance
+                    </span>
+
+                    <h2>
+                        ₹<span id="walletBalance">0.00</span>
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div class="feature-grid">
+
+                <div class="feature-card" onclick="showSection('payments')">
+                    <div class="feature-icon">💸</div>
+                    <h3>Send Money</h3>
+                    <p>Send money using UPI</p>
+                </div>
+
+                <div class="feature-card" onclick="showSection('recharge')">
+                    <div class="feature-icon">📱</div>
+                    <h3>Recharge</h3>
+                    <p>Mobile recharge</p>
+                </div>
+
+                <div class="feature-card" onclick="showSection('bills')">
+                    <div class="feature-icon">💡</div>
+                    <h3>Pay Bills</h3>
+                    <p>Pay your bills</p>
+                </div>
+
+                <div class="feature-card" onclick="showSection('loans')">
+                    <div class="feature-icon">🏦</div>
+                    <h3>Loans</h3>
+                    <p>Explore loans</p>
+                </div>
+
+                <div class="feature-card" onclick="showSection('insurance')">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Insurance</h3>
+                    <p>Protect yourself</p>
+                </div>
+
+                <div class="feature-card" onclick="showSection('investments')">
+                    <div class="feature-icon">📈</div>
+                    <h3>Mutual Funds</h3>
+                    <p>Invest your money</p>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <div class="panel">
+
+                    <div class="panel-title">
+                        <h3>Recent Transactions</h3>
+
+                        <button onclick="showSection('transactions')">
+                            View All
+                        </button>
+                    </div>
+
+                    <div id="recentTransactions">
+                        <p class="empty">
+                            No transactions yet.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <h3>My Profile</h3>
+
+                    <div class="profile-summary">
+
+                        <div class="profile-avatar" id="profileAvatar">
+                            U
+                        </div>
+
+                        <div>
+
+                            <h3 id="dashboardProfileName">
+                                User
+                            </h3>
+
+                            <p id="dashboardProfilePhone">
+                                -
+                            </p>
+
+                            <p id="dashboardProfileEmail">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PAYMENTS ================= -->
+
+        <section id="payments" class="section">
+
+            <div class="section-header">
+                <h1>Send Money</h1>
+                <p>Send money using UPI</p>
+            </div>
+
+            <div class="form-card">
+
+                <form id="paymentForm">
+
+                    <label>Receiver Name</label>
+                    <input
+                        type="text"
+                        id="receiverName"
+                        required
+                    >
+
+                    <label>Receiver Mobile</label>
+                    <input
+                        type="tel"
+                        id="receiverPhone"
+                        maxlength="10"
+                        required
+                    >
+
+                    <label>UPI ID</label>
+                    <input
+                        type="text"
+                        id="receiverUPI"
+                        placeholder="example@upi"
+                    >
+
+                    <label>Amount</label>
+                    <input
+                        type="number"
+                        id="paymentAmount"
+                        min="1"
+                        required
+                    >
+
+                    <label>Note</label>
+                    <input
+                        type="text"
+                        id="paymentNote"
+                        placeholder="Optional"
+                    >
+
+                    <button class="primary-btn">
+                        Send Money
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= RECHARGE ================= -->
+
+        <section id="recharge" class="section">
+
+            <div class="section-header">
+                <h1>Mobile Recharge</h1>
+                <p>Recharge your mobile number</p>
+            </div>
+
+            <div class="form-card">
+
+                <form id="rechargeForm">
+
+                    <label>Mobile Number</label>
+                    <input
+                        type="tel"
+                        id="rechargePhone"
+                        maxlength="10"
+                        required
+                    >
+
+                    <label>Operator</label>
+
+                    <select id="operator" required>
+                        <option value="">Select Operator</option>
+                        <option>Jio</option>
+                        <option>Airtel</option>
+                        <option>Vi</option>
+                        <option>BSNL</option>
+                    </select>
+
+                    <label>Plan Name</label>
+                    <input
+                        type="text"
+                        id="planName"
+                        placeholder="Example: ₹299 Plan"
+                    >
+
+                    <label>Amount</label>
+                    <input
+                        type="number"
+                        id="rechargeAmount"
+                        min="1"
+                        required
+                    >
+
+                    <button class="primary-btn">
+                        Recharge Now
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= BILLS ================= -->
+
+        <section id="bills" class="section">
+
+            <div class="section-header">
+                <h1>Bill Payments</h1>
+                <p>Pay electricity, broadband and other bills</p>
+            </div>
+
+            <div class="form-card">
+
+                <form id="billForm">
+
+                    <label>Bill Type</label>
+
+                    <select id="billType" required>
+
+                        <option value="">
+                            Select Bill
+                        </option>
+
+                        <option>
+                            Electricity
+                        </option>
+
+                        <option>
+                            Water
+                        </option>
+
+                        <option>
+                            Broadband
+                        </option>
+
+                        <option>
+                            DTH
+                        </option>
+
+                        <option>
+                            Gas
+                        </option>
+
+                    </select>
+
+                    <label>Provider Name</label>
+
+                    <input
+                        type="text"
+                        id="providerName"
+                        required
+                    >
+
+                    <label>Consumer Number</label>
+
+                    <input
+                        type="text"
+                        id="consumerNumber"
+                        required
+                    >
+
+                    <label>Amount</label>
+
+                    <input
+                        type="number"
+                        id="billAmount"
+                        min="1"
+                        required
+                    >
+
+                    <button class="primary-btn">
+                        Pay Bill
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= LOANS ================= -->
+
+        <section id="loans" class="section">
+
+            <div class="section-header">
+                <h1>Loans</h1>
+                <p>Apply for a loan</p>
+            </div>
+
+            <div class="loan-grid">
+
+                <div class="loan-card">
+
+                    <h2>Cash Loan</h2>
+
+                    <p>
+                        Apply for a personal cash loan.
+                    </p>
+
+                    <form id="cashLoanForm">
+
+                        <input
+                            type="number"
+                            id="cashLoanAmount"
+                            placeholder="Loan amount"
+                            min="1"
+                            required
+                        >
+
+                        <input
+                            type="number"
+                            id="cashInterest"
+                            placeholder="Interest rate %"
+                        >
+
+                        <input
+                            type="number"
+                            id="cashTenure"
+                            placeholder="Tenure in months"
+                        >
+
+                        <input
+                            type="text"
+                            id="cashPurpose"
+                            placeholder="Purpose"
+                        >
+
+                        <button class="primary-btn">
+                            Apply
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <div class="loan-card">
+
+                    <h2>Home Loan</h2>
+
+                    <p>
+                        Apply for a home loan.
+                    </p>
+
+                    <form id="homeLoanForm">
+
+                        <input
+                            type="number"
+                            id="homeLoanAmount"
+                            placeholder="Loan amount"
+                            min="1"
+                            required
+                        >
+
+                        <input
+                            type="number"
+                            id="propertyValue"
+                            placeholder="Property value"
+                        >
+
+                        <input
+                            type="number"
+                            id="homeInterest"
+                            placeholder="Interest rate %"
+                        >
+
+                        <input
+                            type="number"
+                            id="homeTenure"
+                            placeholder="Tenure in years"
+                        >
+
+                        <input
+                            type="text"
+                            id="propertyLocation"
+                            placeholder="Property location"
+                        >
+
+                        <button class="primary-btn">
+                            Apply
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= INSURANCE ================= -->
+
+        <section id="insurance" class="section">
+
+            <div class="section-header">
+                <h1>Insurance</h1>
+                <p>Manage your insurance</p>
+            </div>
+
+            <div class="form-card">
+
+                <form id="insuranceForm">
+
+                    <label>Insurance Type</label>
+
+                    <select id="insuranceType" required>
+
+                        <option value="">
+                            Select Type
+                        </option>
+
+                        <option>
+                            Health Insurance
+                        </option>
+
+                        <option>
+                            Life Insurance
+                        </option>
+
+                        <option>
+                            Vehicle Insurance
+                        </option>
+
+                    </select>
+
+                    <label>Policy Name</label>
+
+                    <input
+                        type="text"
+                        id="policyName"
+                        required
+                    >
+
+                    <label>Premium Amount</label>
+
+                    <input
+                        type="number"
+                        id="premiumAmount"
+                        min="0"
+                    >
+
+                    <label>Coverage Amount</label>
+
+                    <input
+                        type="number"
+                        id="coverageAmount"
+                        min="0"
+                    >
+
+                    <label>Start Date</label>
+
+                    <input
+                        type="date"
+                        id="insuranceStart"
+                    >
+
+                    <label>End Date</label>
+
+                    <input
+                        type="date"
+                        id="insuranceEnd"
+                    >
+
+                    <button class="primary-btn">
+                        Add Insurance
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= INVESTMENTS ================= -->
+
+        <section id="investments" class="section">
+
+            <div class="section-header">
+
+                <h1>Mutual Fund Investments</h1>
+
+                <p>
+                    Start your investment journey
+                </p>
+
+            </div>
+
+
+            <div class="investment-grid">
+
+                <div class="investment-card">
+
+                    <h2>Invest in Mutual Fund</h2>
+
+                    <form id="investmentForm">
+
+                        <label>Fund Name</label>
+
+                        <input
+                            type="text"
+                            id="fundName"
+                            placeholder="Fund name"
+                            required
+                        >
+
+                        <label>Fund Category</label>
+
+                        <select id="fundCategory">
+
+                            <option>
+                                Equity
+                            </option>
+
+                            <option>
+                                Debt
+                            </option>
+
+                            <option>
+                                Hybrid
+                            </option>
+
+                            <option>
+                                Index Fund
+                            </option>
+
+                        </select>
+
+                        <label>Investment Type</label>
+
+                        <select id="investmentType">
+
+                            <option value="lumpsum">
+                                Lumpsum
+                            </option>
+
+                            <option value="sip">
+                                SIP
+                            </option>
+
+                        </select>
+
+                        <label>Amount</label>
+
+                        <input
+                            type="number"
+                            id="investmentAmount"
+                            min="1"
+                            required
+                        >
+
+                        <label>Units</label>
+
+                        <input
+                            type="number"
+                            id="investmentUnits"
+                            step="0.0001"
+                        >
+
+                        <label>NAV</label>
+
+                        <input
+                            type="number"
+                            id="investmentNAV"
+                            step="0.0001"
+                        >
+
+                        <button class="primary-btn">
+                            Invest Now
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <div class="investment-card">
+
+                    <h2>Start SIP</h2>
+
+                    <form id="sipForm">
+
+                        <label>Fund Name</label>
+
+                        <input
+                            type="text"
+                            id="sipFundName"
+                            required
+                        >
+
+                        <label>Monthly Amount</label>
+
+                        <input
+                            type="number"
+                            id="sipAmount"
+                            min="1"
+                            required
+                        >
+
+                        <label>SIP Date</label>
+
+                        <input
+                            type="number"
+                            id="sipDate"
+                            min="1"
+                            max="28"
+                            placeholder="1 - 28"
+                        >
+
+                        <label>Start Date</label>
+
+                        <input
+                            type="date"
+                            id="sipStartDate"
+                        >
+
+                        <label>Next Payment Date</label>
+
+                        <input
+                            type="date"
+                            id="sipNextDate"
+                        >
+
+                        <button class="primary-btn">
+                            Start SIP
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TRANSACTIONS ================= -->
+
+        <section id="transactions" class="section">
+
+            <div class="section-header">
+
+                <h1>Transaction History</h1>
+
+                <p>
+                    Your complete transaction history
+                </p>
+
+            </div>
+
+            <div class="panel">
+
+                <div id="transactionList">
+
+                    <p class="empty">
+                        No transactions found.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PROFILE ================= -->
+
+        <section id="profile" class="section">
+
+            <div class="section-header">
+
+                <h1>My Profile</h1>
+
+                <p>
+                    Your account details
+                </p>
+
+            </div>
+
+
+            <div class="profile-card">
+
+                <div class="large-avatar" id="largeAvatar">
+                    U
+                </div>
+
+                <h2 id="profileName">
+                    User
+                </h2>
+
+                <p>
+                    📱 <span id="profilePhone">-</span>
+                </p>
+
+                <p>
+                    ✉️ <span id="profileEmail">-</span>
+                </p>
+
+                <p>
+                    🆔 <span id="profileID">-</span>
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
+```
