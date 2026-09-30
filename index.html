@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Navi - RouteMap</title>
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">🧭</div>
+            <div>
+                <h2>Navi</h2>
+                <span>RouteMap</span>
+            </div>
+        </div>
+
+        <nav>
+
+            <button class="menu active" onclick="showPage('mapPage', this)">
+                <span>🗺️</span>
+                Map
+            </button>
+
+            <button class="menu" onclick="showPage('routesPage', this)">
+                <span>🛣️</span>
+                Routes
+            </button>
+
+            <button class="menu" onclick="showPage('savedPage', this)">
+                <span>⭐</span>
+                Saved Places
+            </button>
+
+            <button class="menu" onclick="showPage('vehiclesPage', this)">
+                <span>🚗</span>
+                Vehicles
+            </button>
+
+            <button class="menu" onclick="showPage('historyPage', this)">
+                <span>🕒</span>
+                Route History
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <button class="menu">
+                <span>⚙️</span>
+                Settings
+            </button>
+
+            <div class="profile">
+                <div class="avatar">N</div>
+
+                <div>
+                    <strong>Nandu</strong>
+                    <small>Personal Account</small>
+                </div>
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <!-- MAP PAGE -->
+        <section id="mapPage" class="page active-page">
+
+            <header class="topbar">
+
+                <div>
+                    <h1>Explore</h1>
+                    <p>Find your way anywhere</p>
+                </div>
+
+                <div class="top-actions">
+                    <button class="icon-btn">🔔</button>
+                    <button class="user-btn">N</button>
+                </div>
+
+            </header>
+
+
+            <div class="map-container">
+
+                <div id="map"></div>
+
+
+                <!-- Search Box -->
+                <div class="search-panel">
+
+                    <div class="search-title">
+                        <span>🔍</span>
+                        <input
+                            type="text"
+                            id="destination"
+                            placeholder="Where do you want to go?"
+                        >
+                    </div>
+
+                    <div class="route-input">
+
+                        <div class="location-dot blue"></div>
+
+                        <input
+                            type="text"
+                            id="start"
+                            placeholder="Current location"
+                            value="Current Location"
+                        >
+
+                    </div>
+
+                    <div class="route-line"></div>
+
+                    <div class="route-input">
+
+                        <div class="location-dot red"></div>
+
+                        <input
+                            type="text"
+                            id="end"
+                            placeholder="Enter destination"
+                        >
+
+                    </div>
+
+                    <button class="route-btn" onclick="calculateRoute()">
+                        🛣️ Calculate Route
+                    </button>
+
+                </div>
+
+
+                <!-- Map Controls -->
+                <div class="map-controls">
+
+                    <button onclick="locateUser()">📍</button>
+
+                    <button onclick="zoomIn()">+</button>
+
+                    <button onclick="zoomOut()">−</button>
+
+                </div>
+
+
+                <!-- Route Information -->
+                <div id="routeInfo" class="route-info">
+
+                    <div>
+                        <span>Distance</span>
+                        <strong id="distance">--</strong>
+                    </div>
+
+                    <div>
+                        <span>Time</span>
+                        <strong id="time">--</strong>
+                    </div>
+
+                    <div>
+                        <span>Mode</span>
+                        <strong>🚗 Car</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ROUTES PAGE -->
+        <section id="routesPage" class="page">
+
+            <div class="page-header">
+
+                <div>
+                    <h1>Routes</h1>
+                    <p>Plan your journey</p>
+                </div>
+
+                <button class="primary-btn" onclick="openRouteForm()">
+                    + New Route
+                </button>
+
+            </div>
+
+            <div class="cards">
+
+                <div class="route-card">
+
+                    <div class="route-icon">🛣️</div>
+
+                    <div>
+                        <h3>College Route</h3>
+                        <p>Home → Sai University</p>
+                        <small>18.5 km · 35 min</small>
+                    </div>
+
+                </div>
+
+
+                <div class="route-card">
+
+                    <div class="route-icon">🏙️</div>
+
+                    <div>
+                        <h3>City Route</h3>
+                        <p>College → Chennai</p>
+                        <small>42 km · 1 hr 10 min</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SAVED PAGE -->
+        <section id="savedPage" class="page">
+
+            <div class="page-header">
+
+                <div>
+                    <h1>Saved Places</h1>
+                    <p>Your favorite locations</p>
+                </div>
+
+                <button class="primary-btn" onclick="addPlace()">
+                    + Add Place
+                </button>
+
+            </div>
+
+
+            <div class="cards">
+
+                <div class="place-card">
+
+                    <div class="place-icon home">🏠</div>
+
+                    <div>
+                        <h3>Home</h3>
+                        <p>My Home Location</p>
+                    </div>
+
+                    <button>•••</button>
+
+                </div>
+
+
+                <div class="place-card">
+
+                    <div class="place-icon college">🎓</div>
+
+                    <div>
+                        <h3>College</h3>
+                        <p>Sai University</p>
+                    </div>
+
+                    <button>•••</button>
+
+                </div>
+
+
+                <div class="place-card">
+
+                    <div class="place-icon work">💼</div>
+
+                    <div>
+                        <h3>Work</h3>
+                        <p>Office Location</p>
+                    </div>
+
+                    <button>•••</button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- VEHICLES PAGE -->
+        <section id="vehiclesPage" class="page">
+
+            <div class="page-header">
+
+                <div>
+                    <h1>Vehicles</h1>
+                    <p>Manage your vehicles</p>
+                </div>
+
+                <button class="primary-btn" onclick="addVehicle()">
+                    + Add Vehicle
+                </button>
+
+            </div>
+
+
+            <div class="vehicle-card">
+
+                <div class="vehicle-image">🚗</div>
+
+                <div class="vehicle-details">
+
+                    <h2>My Car</h2>
+
+                    <p>Personal Vehicle</p>
+
+                    <div class="vehicle-info">
+
+                        <span>🚘 Car</span>
+                        <span>⛽ Petrol</span>
+                        <span>🪪 TN 00 AB 1234</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- HISTORY PAGE -->
+        <section id="historyPage" class="page">
+
+            <div class="page-header">
+
+                <div>
+                    <h1>Route History</h1>
+                    <p>Your previous journeys</p>
+                </div>
+
+            </div>
+
+
+            <div class="history-list">
+
+                <div class="history-item">
+
+                    <div class="history-icon">🛣️</div>
+
+                    <div class="history-details">
+
+                        <h3>Home → College</h3>
+                        <p>Today · 9:15 AM</p>
+
+                    </div>
+
+                    <div class="history-distance">
+                        18.5 km
+                    </div>
+
+                </div>
+
+
+                <div class="history-item">
+
+                    <div class="history-icon">🛣️</div>
+
+                    <div class="history-details">
+
+                        <h3>College → Chennai</h3>
+                        <p>Yesterday · 4:30 PM</p>
+
+                    </div>
+
+                    <div class="history-distance">
+                        42 km
+                    </div>
+
+                </div>
+
+
+                <div class="history-item">
+
+                    <div class="history-icon">🛣️</div>
+
+                    <div class="history-details">
+
+                        <h3>Home → Mall</h3>
+                        <p>28 Sep · 6:20 PM</p>
+
+                    </div>
+
+                    <div class="history-distance">
+                        8.2 km
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
