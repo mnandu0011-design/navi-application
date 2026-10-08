@@ -1,4 +1,4 @@
-🗺️ Navi – RouteMap Database Project
+# 🗺️ Navi – RouteMap Database Project
 
 A Supabase PostgreSQL database project for a navigation and route-planning application called Navi – RouteMap.
 
